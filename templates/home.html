@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Lights | jdabbs.com</title>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body { padding-top: 60px; }
+      ul { list-style: none; }
+    </style>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $(".no-js").hide();
+
+        var show_success = function() { $("#success-modal").modal(); }
+        var show_error   = function() { $("#error-modal").modal();   }
+
+        $("#stop-form").submit(function(e) {
+          e.preventDefault();
+          $.ajax("/stop", {
+            data:    $("#stop-form").serialize(),
+            method:  "POST",
+            success: show_success,
+            error:   show_error
+          });
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="no-js alert alert-danger">
+        <h2><i class="glyphicon glyphicon-remove-sign"></i> Uh-oh ...</h2>
+        <p>This app needs javascript enabled to work correctly. See <a href="http://enable-javascript.com/">this page</a> for more info.</p>
+      </div>
+
+      <form class="jumbotron" id="stop-form">
+        <h1>Sorry!</h1>
+        <p>I don't mean to bother you; please let me know how I can do better: <small class="pull-right">All fields optional</small></p>
+        <div class="form-group">
+          <input class="form-control" name="contact" placeholder="Contact information (email, phone or apt. #)">
+        </div>
+        <div class="form-group">
+          <input class="form-control" name="comments" placeholder="Requests / comments / suggestions?">
+        </div>
+        <button class="btn btn-danger btn-lg">Stop!</button>
+      </div>
+
+      <div id="success-modal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h2 class="modal-title">Got It!</h2>
+            </div>
+            <div class="modal-body">
+              <p>Assuming all goes well, my lights should be turning red in a second, and I'll cut out all the racket.</p>
+
+              <h4>Still Being Noisy?</h4>
+              <p>It may take a few seconds for the lights to trigger, but if it's been more than a minute and nothing has happened, then
+                 something probably went wrong. Please contact me so that I can figure out what and fix it.</p>
+
+              <h4>Questions or Suggestions?</h4>
+              <p>If you have any questions or if there's anything I can do to help at all, please get in touch and let me know.</p>
+
+              <br>
+
+              <h4 class="pull-right">&mdash; <i>James</i></h4>
+            </div>
+            <div class="modal-footer">
+              <ul>
+                <li><a href="mailto:jamesdabbs@gmail.com">jamesdabbs@gmail.com</a> <i class="glyphicon glyphicon-envelope"></i></li>
+                <li>706.402.4836 <i class="glyphicon glyphicon-earphone"></i></li>
+                <li>Apt #312 <i class="glyphicon glyphicon-home"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="error-modal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h2 class="modal-title">Uh Oh ...</h2>
+            </div>
+            <div class="modal-body">
+              <p>Something went wrong when trying to change the lights. Please get in touch with me, so that I can fix it (and
+                 bear with me for now - my headphones are probably on, so it may take me a bit to get back to you).</p>
+              <p>Thanks for your understanding.</p>
+              <h4 class="pull-right">&mdash; <i>James</i></h4>
+            </div>
+            <div class="modal-footer">
+              <ul>
+                <li><a href="mailto:jamesdabbs@gmail.com">jamesdabbs@gmail.com</a> <i class="glyphicon glyphicon-envelope"></i></li>
+                <li>706.402.4836 <i class="glyphicon glyphicon-earphone"></i></li>
+                <li>Apt #312 <i class="glyphicon glyphicon-home"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+

@@ -1,10 +1,13 @@
-from flask import Flask, make_response
+from flask import Flask, request, make_response, render_template
+import mandrill
 import os
 import requests
 
 BRIDGE_ID      = os.environ["HUE_BRIDGE_ID"]
 ACCESS_TOKEN   = os.environ["HUE_ACCESS_TOKEN"]
 CONTACT_NUMBER = os.environ["HUE_CONTACT_NUMBER"]
+
+mailer = mandrill.Mandrill(os.environ["MANDRILL_APIKEY"])
 
 app = Flask(__name__)
 
@@ -21,18 +24,25 @@ def sendmessage(endpoint, method, body):
 
 @app.route("/", methods=["GET"])
 def home():
-    return "It works"
+  return render_template("home.html")
 
 @app.route("/stop", methods=["POST"])
 def stop():
+  message = {
+    "from_email": "aziz@jdabbs.com",
+    "from_name": "Aziz",
+    "to": [{"email":"jamesdabbs@gmail.com", "name":"James"}],
+    "subject": "Lights!",
+    "html": """Keep it down!
+       <ul>
+         <li>IP: %s</li>
+         <li>Contact info: %s</li>
+         <li>Comments: %s</li>
+       </ul>""" % (request.remote_addr, request.form["contact"], request.form["comments"])
+  }
+  mailer.messages.send(message, async=True)
   return sendmessage("groups/0/action", "PUT", '{"on":true, "sat":255, "hue":0}')
 
-# Something to toggle while debugging ...
-@app.route("/go", methods=["POST"])
-def go():
-  return sendmessage("groups/0/action", "PUT", '{"on":true, "sat":255, "hue":25000}')
-
 if __name__ == "__main__":
-      app.run(host='0.0.0.0', debug=True)
-
+  app.run(host='0.0.0.0', debug=True)
 
