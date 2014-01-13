@@ -5,7 +5,6 @@ import requests
 
 BRIDGE_ID      = os.environ["HUE_BRIDGE_ID"]
 ACCESS_TOKEN   = os.environ["HUE_ACCESS_TOKEN"]
-CONTACT_NUMBER = os.environ["HUE_CONTACT_NUMBER"]
 
 mailer = mandrill.Mandrill(os.environ["MANDRILL_APIKEY"])
 
