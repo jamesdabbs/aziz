@@ -11,6 +11,9 @@ gem 'slim-rails'
 gem 'twilio-ruby'
 gem 'httparty'
 
+gem 'newrelic_rpm'
+gem 'rollbar'
+
 group :development do
   gem 'dotenv-rails'
   gem 'pry'
