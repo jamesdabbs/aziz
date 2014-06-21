@@ -9,6 +9,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'slim-rails'
 gem 'twilio-ruby'
+gem 'httparty'
 
 group :development do
   gem 'dotenv-rails'
