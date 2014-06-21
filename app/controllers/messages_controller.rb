@@ -11,7 +11,11 @@ class MessagesController < ApplicationController
       body: params[:Body]
     )
 
-    Light.alert!
+    imposition = Imposition.create!(
+      message: message,
+      contact: params[:From],
+      body:    params[:Body]
+    ).notify!
 
     message.reply "Roger! Keeping it down momentarily ..."
 

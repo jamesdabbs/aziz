@@ -1,4 +1,6 @@
 class Message < ActiveRecord::Base
+  has_one :imposition
+
   def reply text
     twilio.messages.create(
       from: ENV.fetch("TWILIO_NUMBER"),

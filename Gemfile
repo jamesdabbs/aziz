@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'slim-rails'
 gem 'twilio-ruby'
 gem 'httparty'
+gem 'mandrill-api'
 
 gem 'newrelic_rpm'
 gem 'rollbar'

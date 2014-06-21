@@ -4,8 +4,8 @@ class ImpositionsController < ApplicationController
   end
 
   def create
-    @imposition = Imposition.new create_params.merge(metadata: request_metadata)
-    Light.alert! if @imposition.save
+    @imposition = Imposition.create! create_params.merge(metadata: request_metadata)
+    @imposition.notify!
     head :no_content
   end
 
