@@ -5,11 +5,8 @@ class ImpositionsController < ApplicationController
 
   def create
     @imposition = Imposition.new create_params.merge(metadata: request_metadata)
-    if @imposition.save
-      redirect_to new_imposition_path, success: "Got it! Sorry about that!"
-    else
-      render :new
-    end
+    Light.alert! if @imposition.save
+    head :no_content
   end
 
   private

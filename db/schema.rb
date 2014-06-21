@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20140621004923) do
 
   create_table "impositions", force: true do |t|
     t.integer  "message_id"
+    t.text     "contact"
     t.text     "body"
     t.text     "metadata"
     t.datetime "created_at"

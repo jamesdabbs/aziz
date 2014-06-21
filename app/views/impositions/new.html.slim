@@ -1,3 +1,69 @@
-= form_for @imposition do |f|
-  = f.text_field :body
-  = f.submit
+= form_for @imposition, html: { class: "jumbotron" } do |f|
+  h1 Sorry!
+  p
+    | I didn't mean to bother you; please let me know how I can do better:
+    small.pull-right All fields optional
+
+  .form-group
+    = f.text_field :contact, class: "form-control", placeholder: "Contact information (email, phone or apt. #)"
+
+  .form-group
+    = f.text_field :body, class: "form-control", placeholder: "Requests / comments / suggestions?"
+
+  button.btn.btn-danger.btn-lg Stop!
+
+javascript:
+  $(function() {
+    var form = $("#new_imposition");
+
+    form.submit(function(e) {
+      e.preventDefault();
+      $.ajax("#{impositions_path}", {
+        data:    form.serialize(),
+        method:  "POST",
+        success: function() { $("#success-modal").modal(); },
+        error:   function() { $("#error-moadl").moad(); }
+      });
+    });
+  });
+
+#success-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+        h2 Got It!
+      .modal-body
+        p Assuming all goes well, my lights should be turning red in a second, and I'll cut out all the racket.
+
+        h4 Still Being Noisy?
+        It may take a few seconds for the lights to trigger, but if it's been more than a minute and nothing has happened, then something probably went wrong. Please contact me so that I can figure out what and fix it.
+
+        h4 Questions or Suggestions?
+        p If you have any questions or if there's anything I can do to help at all, please get in touch and let me know.
+
+        br
+        h4.pull-right &mdash; <i>James</i>
+      .modal-footer
+        ul
+          li <a href="mailto:jamesdabbs@gmail.com">jamesdabbs@gmail.com</a> <i class="glyphicon glyphicon-envelope"></i>
+          li 706.402.4836 <i class="glyphicon glyphicon-earphone"></i>
+          li Apt #312 <i class="glyphicon glyphicon-home"></i>
+
+#error-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+        h2 Uh Oh ...
+      .modal-body
+        p Something went wrong when trying to change the lights. Please get in touch with me, so that I can fix it (and bear with me for now - my headphones are probably on, so it may take me a bit to get back to you).
+        p Thanks for your understanding.
+
+        br
+        h4.pull-right &mdash; <i>James</i>
+      .modal-footer
+        ul
+          li <a href="mailto:jamesdabbs@gmail.com">jamesdabbs@gmail.com</a> <i class="glyphicon glyphicon-envelope"></i>
+          li 706.402.4836 <i class="glyphicon glyphicon-earphone"></i>
+          li Apt #312 <i class="glyphicon glyphicon-home"></i>
