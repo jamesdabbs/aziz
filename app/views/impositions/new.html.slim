@@ -14,15 +14,29 @@
 
 javascript:
   $(function() {
-    var form = $("#new_imposition");
+    var form = $("#new_imposition")
+      , button = form.find("button")
+      , restoreButton = function() {
+        button.html(button.data("original")).removeAttr("disabled");
+      };
+
+    button.data("original", button.html());
 
     form.submit(function(e) {
       e.preventDefault();
+      button.html("Sending ...").attr("disabled", "disabled");
+
       $.ajax("#{impositions_path}", {
         data:    form.serialize(),
         method:  "POST",
-        success: function() { $("#success-modal").modal(); },
-        error:   function() { $("#error-moadl").moad(); }
+        success: function() {
+          $("#success-modal").modal();
+          restoreButton();
+        },
+        error: function() {
+          $("#error-modal").modal();
+          restoreButton();
+        },
       });
     });
   });

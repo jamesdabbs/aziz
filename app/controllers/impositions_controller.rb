@@ -12,7 +12,7 @@ class ImpositionsController < ApplicationController
   private
 
   def create_params
-    params.require(:imposition).permit(:body)
+    params.require(:imposition).permit(:contact, :body)
   end
 
   def request_metadata
